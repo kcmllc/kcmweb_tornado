@@ -3,6 +3,7 @@
 <head>
     <title>Sample test</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+    <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"> </script>
 </head>
 <body>
 <h1>Hello world</h1>
@@ -26,10 +27,12 @@
 
 
         if ("WebSocket" in window) {
-            var ws = new WebSocket("ws://localhost:5000/realtime");
+            var ws = new SockJS("/realtime");
             ws.onopen = function () {
+                console.log('connected');
             };
             ws.onmessage = function (evt) {
+                console.log(evt);
                 var received_msg = evt.data;
                 var html = $("#log").html();
                 html += "<p>" + received_msg + "</p>";
